@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "842668289584",
+    "project_id": "datatransfer-d4dce",
+    "storage_bucket": "datatransfer-d4dce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842668289584:android:e71429609feec5668207f5",
+        "android_client_info": {
+          "package_name": "com.hfad.volume"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "842668289584-1m19af7me1mchrtmqt5k4v68k0semm0f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hfad.volume",
+            "certificate_hash": "8b0fb08f12a19a26dfcae81b974b423a3afd3446"
+          }
+        },
+        {
+          "client_id": "842668289584-5bu2k6pdo7rn04fppaa8uq9bjckd41fn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4ziycdqQzi-mke5xhydkZGpOkub1iYQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "842668289584-5bu2k6pdo7rn04fppaa8uq9bjckd41fn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
