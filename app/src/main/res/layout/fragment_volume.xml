@@ -10,11 +10,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/background">
 
-        <SeekBar
-            android:id="@+id/seekBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/increaseVolume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="25dp"
+            android:backgroundTint="@color/light_blue"
+            android:fontFamily="casual"
+            android:text="@string/Increase_Volume"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/decreaseVolume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="25dp"
+            android:backgroundTint="@color/light_blue"
+            android:fontFamily="casual"
+            android:text="@string/Decrease_Volume"
+            android:textColor="@color/white" />
     </LinearLayout>
 </FrameLayout>

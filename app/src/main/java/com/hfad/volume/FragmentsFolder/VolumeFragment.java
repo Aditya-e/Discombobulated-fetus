@@ -9,14 +9,25 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SeekBar;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.hfad.volume.R;
 
 //this fragment controls volume of other device
 public class VolumeFragment extends Fragment {
-    private SeekBar seekBar;
+    private Button increaseVolume,decreaseVolume;
     private AudioManager audioManager;
+    String targetPhone;
+    int volume=1;
+
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+
+    FindNumberFragment findNumberFragment;
+
         public VolumeFragment() {
         // Required empty public constructor
     }
@@ -28,35 +39,32 @@ public class VolumeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_volume, container, false);
-        seekBar=view.findViewById(R.id.seekBar);//initialise seek bar
+        increaseVolume=view.findViewById(R.id.increaseVolume);
+        decreaseVolume=view.findViewById(R.id.decreaseVolume);
+
+        findNumberFragment=new FindNumberFragment();
+        targetPhone=findNumberFragment.sendTargetPhone();
+
+        database=FirebaseDatabase.getInstance();
+        myRef=database.getReference("User");
 
         //AudioManger class is used to control the volume
-        audioManager=(AudioManager)getActivity().getSystemService(Context.AUDIO_SERVICE); //getSystemService needs to be called on context hence getActivity()
+//        audioManager=(AudioManager)getActivity().getSystemService(Context.AUDIO_SERVICE); //getSystemService needs to be called on context hence getActivity()
+//        audioManager.setStreamVolume(AudioManager.STREAM_RING,0,0);
 
-        seekBar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_RING));//sets limit of seek bar based on the max ringer volume of device
-
-
-        //listen to change in seekbar
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        increaseVolume.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int volume, boolean b) {
-
-                audioManager.setStreamVolume(AudioManager.STREAM_RING,volume,0);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
+            public void onClick(View view) {
+                myRef.child(targetPhone).child("Volume").setValue(++volume);
             }
         });
 
-
-
+        decreaseVolume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myRef.child(targetPhone).child("Volume").setValue(--volume);
+            }
+        });
 
         return view;
     }

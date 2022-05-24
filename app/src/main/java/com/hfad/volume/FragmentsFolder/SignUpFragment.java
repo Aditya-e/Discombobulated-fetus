@@ -1,19 +1,17 @@
 package com.hfad.volume.FragmentsFolder;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.media.AudioManager;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -33,7 +31,6 @@ public class SignUpFragment extends Fragment {
     FirebaseDatabase database;
     DatabaseReference myRef;
     private String Volume="Volume";
-    private String Permission="Permission";
     private String Camera="Camera";
     private String MaxVolume="Max Volume";
     private String Password="Password";
@@ -79,9 +76,8 @@ public class SignUpFragment extends Fragment {
         else Log.e("Data Inserted", "FALSE");
         myRef.child(myPhoneString).child(Volume).setValue(0);
         myRef.child(myPhoneString).child(Camera).setValue("");
-        myRef.child(myPhoneString).child(Permission).setValue(false);
-        myRef.child(myPhoneString).child(MaxVolume).setValue(maxVolume);
-        myRef.child(myPhoneString).child(Password).setValue(passwordString);
+        myRef.child(myPhoneString).child(MaxVolume).setValue(0);
+        myRef.child(myPhoneString).child(Password).setValue("");
         launchFindNumberFragment();
     }
 

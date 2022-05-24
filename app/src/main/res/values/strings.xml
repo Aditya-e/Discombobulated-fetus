@@ -16,4 +16,7 @@
     <string name="Change_Discoverability">Change Discoverability</string>
     <string name="Not_Discoverable">Not Discoverable</string>
     <string name="Discoverable">Discoverable</string>
+    <string name="Permission">Give Do Not Disturb Permission</string>
+    <string name="Increase_Volume">Increase Volume</string>
+    <string name="Decrease_Volume">Decrease Volume</string>
 </resources>
