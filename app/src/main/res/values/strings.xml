@@ -13,4 +13,7 @@
     <string name="Sign_Up">Sign Up</string>
     <string name="Find_Phone">Lost Phone No.</string>
     <string name="Get_Controls">Get Controls</string>
+    <string name="Change_Discoverability">Change Discoverability</string>
+    <string name="Not_Discoverable">Not Discoverable</string>
+    <string name="Discoverable">Discoverable</string>
 </resources>

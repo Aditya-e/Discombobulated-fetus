@@ -1,5 +1,8 @@
 package com.hfad.volume.FragmentsFolder;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.media.AudioManager;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,6 +23,9 @@ import com.hfad.volume.R;
 //launched if user is not signed up...adds user to local database and firebase
 public class SignUpFragment extends Fragment {
 
+
+    private AudioManager audioManager;
+    private int maxVolume;
     Button signUp;
     EditText myPhone,password;
     private String myPhoneString,passwordString;
@@ -29,6 +35,8 @@ public class SignUpFragment extends Fragment {
     private String Volume="Volume";
     private String Permission="Permission";
     private String Camera="Camera";
+    private String MaxVolume="Max Volume";
+    private String Password="Password";
     View view;
 
 
@@ -44,6 +52,7 @@ public class SignUpFragment extends Fragment {
         myRef=database.getReference("User");
         signUp=view.findViewById(R.id.signUp);
         myPhone=view.findViewById(R.id.myPhone);
+
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,14 +70,18 @@ public class SignUpFragment extends Fragment {
     private void addUser()
     {
 
+        audioManager=(AudioManager)getActivity().getSystemService(Context.AUDIO_SERVICE);
+        maxVolume=audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
         myPhoneString = myPhone.getText().toString();
         passwordString=password.getText().toString();
-        boolean result = db.insertData(myPhoneString, passwordString);
+        boolean result = db.insertData(myPhoneString, passwordString,"reference");
         if (result) Log.e("Data inserted", "TRUE");
         else Log.e("Data Inserted", "FALSE");
         myRef.child(myPhoneString).child(Volume).setValue(0);
         myRef.child(myPhoneString).child(Camera).setValue("");
         myRef.child(myPhoneString).child(Permission).setValue(false);
+        myRef.child(myPhoneString).child(MaxVolume).setValue(maxVolume);
+        myRef.child(myPhoneString).child(Password).setValue(passwordString);
         launchFindNumberFragment();
     }
 
@@ -79,4 +92,6 @@ public class SignUpFragment extends Fragment {
         transaction.replace(R.id.linearLayoutAuthentication,findNumberFragment);
         transaction.commit();
     }
+
+
 }

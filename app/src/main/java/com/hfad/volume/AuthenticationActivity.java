@@ -14,7 +14,8 @@ import com.hfad.volume.FragmentsFolder.SignUpFragment;
 
 public class AuthenticationActivity extends AppCompatActivity {
 
-    DataBase db;//Local SQLite database initialisation
+    public DataBase db;//Local SQLite database initialisation
+    Cursor res;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,4 +59,6 @@ public class AuthenticationActivity extends AppCompatActivity {
         transaction.replace(R.id.linearLayoutAuthentication,findNumberFragment);
         transaction.commit();
     }
+
+
 }

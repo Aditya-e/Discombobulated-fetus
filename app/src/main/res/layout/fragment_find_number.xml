@@ -18,6 +18,8 @@
         android:hint="@string/Find_Phone"
         android:inputType="phone" />
 
+
+
     <EditText
         android:id="@+id/lostPassword"
         android:layout_width="match_parent"
@@ -26,7 +28,7 @@
         android:fontFamily="casual"
         android:layout_margin="20dp"
         android:hint="@string/Lost_Password"
-        android:inputType="phone" />
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/getControl"
@@ -39,4 +41,15 @@
         android:textColor="@color/light_blue"
         android:text="@string/Get_Controls"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <Button
+        android:id="@+id/makeDiscoverable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="35dp"
+        android:layout_gravity="center"
+        android:textColor="@color/light_blue"
+        android:background="@android:color/transparent"
+        android:fontFamily="casual"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 </LinearLayout>

@@ -13,6 +13,8 @@ public class DataBase extends SQLiteOpenHelper {
     private static final String TABLE_NAME="NumberBooK";
     private static final String COLUMN_1="MyNumber";
     private static final String COLUMN_2="Password";
+    private static final String COLUMN_3="ServiceRunning";
+    private static final String COLUMN_4="Reference";
 
     public DataBase(Context context) {
         super(context, DB_NAME, null, 1);
@@ -21,7 +23,7 @@ public class DataBase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table " + TABLE_NAME + "(MyNumber text,Password text)");
+        sqLiteDatabase.execSQL("create table " + TABLE_NAME + "(MyNumber text,Password text,ServiceRunning int,Reference text)");
 
     }
 
@@ -34,13 +36,25 @@ public class DataBase extends SQLiteOpenHelper {
     }
 
     //insert data in SQLite database
-    public boolean insertData(String myNumber,String Password)
+    public boolean insertData(String myNumber,String Password,String reference)
     {
         SQLiteDatabase db= this.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
         contentValues.put(COLUMN_1,myNumber);
         contentValues.put(COLUMN_2,Password);
+        contentValues.put(COLUMN_4,reference);
+        contentValues.put(COLUMN_3,0);
         long result=db.insert(TABLE_NAME,null,contentValues);
+        return result != -1;
+    }
+
+
+    public boolean updateServiceState(int state)
+    {
+        SQLiteDatabase db= this.getWritableDatabase();
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(COLUMN_3,state);
+        long result=db.update(TABLE_NAME,contentValues,"Reference=?",new String[] {"reference"});
         return result != -1;
     }
 
