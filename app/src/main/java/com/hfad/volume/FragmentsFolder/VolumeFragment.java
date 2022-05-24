@@ -13,7 +13,7 @@ import android.widget.SeekBar;
 
 import com.hfad.volume.R;
 
-
+//this fragment controls volume of other device
 public class VolumeFragment extends Fragment {
     private SeekBar seekBar;
     private AudioManager audioManager;
@@ -28,20 +28,20 @@ public class VolumeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_volume, container, false);
-        seekBar=view.findViewById(R.id.seekBar);
+        seekBar=view.findViewById(R.id.seekBar);//initialise seek bar
+
+        //AudioManger class is used to control the volume
         audioManager=(AudioManager)getActivity().getSystemService(Context.AUDIO_SERVICE); //getSystemService needs to be called on context hence getActivity()
 
-        seekBar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_RING));
+        seekBar.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_RING));//sets limit of seek bar based on the max ringer volume of device
 
+
+        //listen to change in seekbar
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int volume, boolean b) {
 
-
-
-
                 audioManager.setStreamVolume(AudioManager.STREAM_RING,volume,0);
-
             }
 
             @Override

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:gravity="center_vertical"
+    tools:context=".FragmentsFolder.FindNumberFragment">
+
+    <EditText
+        android:id="@+id/findPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:layout_margin="20dp"
+        android:hint="@string/Find_Phone"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/lostPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:fontFamily="casual"
+        android:layout_margin="20dp"
+        android:hint="@string/Lost_Password"
+        android:inputType="phone" />
+
+    <Button
+        android:id="@+id/getControl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:background="@android:color/transparent"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/light_blue"
+        android:text="@string/Get_Controls"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+</LinearLayout>

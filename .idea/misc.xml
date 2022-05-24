@@ -7,7 +7,11 @@
         <entry key="app/src/main/res/drawable/button_shape.xml" value="0.209" />
         <entry key="app/src/main/res/drawable/custom_seekbar.xml" value="0.209" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.209" />
+        <entry key="app/src/main/res/layout/activity_authentication.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.333786231884058" />
+        <entry key="app/src/main/res/layout/fragment_find_number.xml" value="0.333786231884058" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.333786231884058" />
+        <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/fragment_volume.xml" value="0.333786231884058" />
       </map>
     </option>

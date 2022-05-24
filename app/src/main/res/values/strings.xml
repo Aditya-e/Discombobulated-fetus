@@ -5,4 +5,12 @@
     <string name="SetVolume">Set Volume</string>
     <string name="GetImages">Get Images</string>
     <string name="AppTitle">PhoneFinder</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="My_Phone_Number">Phone Number</string>
+    <string name="Password">Password</string>
+    <string name="Lost_Password">Password Of Lost Phone</string>
+    <string name="Sign_Up">Sign Up</string>
+    <string name="Find_Phone">Lost Phone No.</string>
+    <string name="Get_Controls">Get Controls</string>
 </resources>
