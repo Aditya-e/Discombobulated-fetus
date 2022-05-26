@@ -21,7 +21,11 @@ import com.hfad.volume.DataBase;
 import android.os.Handler;
 import java.util.logging.LogRecord;
 
+//I DO NOT UNDERSTAND HOW SERVICE WORKS,THERE IS A REALLY WEIRD BEHAVIOUR THAT I CAN'T EXPLAIN
 
+/*
+* Problems:The service is not stopping with stopService() method or with selfStop()
+*           If the controller has entered password correctly once and goes back to enter wrong password,controller is still able to control it*/
 public class DiscoverableService extends IntentService {
 
     DataBase db;
@@ -29,15 +33,13 @@ public class DiscoverableService extends IntentService {
     String password;
     String phoneNumber;
     boolean access;
-    private Handler handler;
-    //Camera camera;
 
     FirebaseDatabase database;
     DatabaseReference myRef;
 
     AudioManager audioManager;
 
-    private String permission;
+    String permission;
 
 
     public DiscoverableService() {
@@ -47,8 +49,7 @@ public class DiscoverableService extends IntentService {
     @Override
     public int onStartCommand(Intent intent,int flags,int startId)
     {
-        handler=new Handler();
-        permission=intent.getStringExtra("permission");
+
         return super.onStartCommand(intent,flags,startId);
     }
 
@@ -70,75 +71,80 @@ public class DiscoverableService extends IntentService {
         //audioManager.setStreamVolume(AudioManager.STREAM_RING,0,0);
 
 
-        Log.e("Permission: ",permission);
-        if(permission.equals("GRANTED")) {
+        database.getReference("User").child(phoneNumber).child("Permission").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                permission=snapshot.getValue(String.class);
+                if(permission.equals("true"))  //supposed to check from firebase whether permission is "true" or "false"
+                    myRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String passwordEntered = snapshot.getValue(String.class);
+                            //supposed to check if password entered is correct
+                            if (password.equals(passwordEntered)) {
+                                Log.e("password:",passwordEntered);
+                                access = true;
 
+                                if(access){database.getReference("User").child(phoneNumber).child("Volume").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        int volume = snapshot.getValue(Integer.class);
+                                        audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
 
-            myRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String passwordEntered = snapshot.getValue(String.class);
-                    if (password.equals(passwordEntered)) {
-                        access = true;
-                        Log.e("Service:", "Running here too");
-                        Log.e("access", Boolean.toString(access));
-                        //maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
-                        database.getReference("User").child(phoneNumber).child("Volume").addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                int volume = snapshot.getValue(Integer.class);
-                                audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
+                                    }
 
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });}
                             }
+                        }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-                            }
-                        });
+                        }
+                    });
 
-
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        }
-
-            if(access) {
-//                database.getReference("User").child(phoneNumber).child("Volume").addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        int volume=snapshot.getValue(Integer.class);
-//                        audioManager.setStreamVolume(AudioManager.STREAM_RING,volume,0);
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
             }
 
-
-    }
-
-
-
-    private void showText()
-    {
-        handler.post(new Runnable() {
             @Override
-            public void run() {
-                if (access) {
-                    Toast.makeText(getApplicationContext(), "Access", Toast.LENGTH_SHORT);
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                }
             }
         });
+
+
+
+
+//            myRef.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    String passwordEntered = snapshot.getValue(String.class);
+//                    if (password.equals(passwordEntered)) {
+//                        access = true;
+//                        //maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
+//                        database.getReference("User").child(phoneNumber).child("Volume").addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                int volume = snapshot.getValue(Integer.class);
+//                                audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
+//
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError error) {
+//
+//                            }
+//                        });
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//
+//                }
+//            });
+        }
     }
-}

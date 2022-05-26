@@ -49,6 +49,7 @@ public class DataBase extends SQLiteOpenHelper {
     }
 
 
+    //update whether service is running or not(basically useless)
     public boolean updateServiceState(int state)
     {
         SQLiteDatabase db= this.getWritableDatabase();

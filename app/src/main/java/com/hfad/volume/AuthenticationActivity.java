@@ -1,15 +1,7 @@
 package com.hfad.volume;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.Manifest;
 import android.app.NotificationManager;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -17,13 +9,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.hfad.volume.FragmentsFolder.FindNumberFragment;
 import com.hfad.volume.FragmentsFolder.SignUpFragment;
 
 public class AuthenticationActivity extends AppCompatActivity {
 
     public DataBase db;//Local SQLite database initialisation
-    Cursor res;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +30,7 @@ public class AuthenticationActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         ColorDrawable colorDrawable
                 = new ColorDrawable(Color.parseColor("#009FFF"));
+        assert actionBar != null;
         actionBar.setBackgroundDrawable(colorDrawable);
         actionBar.setTitle(R.string.AppTitle);
 
@@ -47,7 +43,8 @@ public class AuthenticationActivity extends AppCompatActivity {
 
         
 
-        Toast.makeText(getApplicationContext(),R.string.Permission,Toast.LENGTH_LONG);
+
+        //Request Permissions
         NotificationManager notificationManager =
                 (NotificationManager) this.getSystemService(this.NOTIFICATION_SERVICE);
 
@@ -62,17 +59,6 @@ public class AuthenticationActivity extends AppCompatActivity {
 
             startActivity(intent);
         }
-
-
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_DENIED)
-            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 183);
-
-
-
-
-
     }
 
     //method to launch SignUpFragment

@@ -10,20 +10,21 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toolbar;
+import android.widget.TextView;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.hfad.volume.FragmentsFolder.VolumeFragment;
 //Activity opened up after lost phone's number and password is entered
 
 public class MainActivity extends AppCompatActivity {
+    TextView insultUser;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        insultUser=findViewById(R.id.insultUser);
 
         //Setting the color of toolbar and title
         ActionBar actionBar;
@@ -37,20 +38,20 @@ public class MainActivity extends AppCompatActivity {
         String targetPhone=intent.getStringExtra("targetPhone");
 
 
-        //Buttons to open volume and camera fragments
+        //Buttons to open volume fragments
         Button volume=findViewById(R.id.Volume);
-        Button camera=findViewById(R.id.Camera);
 
         //'Get Volume' button listener
         volume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                insultUser.setText("");
                 Bundle bundle = new Bundle();
                 bundle.putString("targetPhone", targetPhone);
                 VolumeFragment volumeFragment=new VolumeFragment();
                 volumeFragment.setArguments(bundle);
                 FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragmentLayout,volumeFragment);
+                transaction.replace(R.id.fragmentLinearLayout,volumeFragment);
                 transaction.commit();
             }
         });

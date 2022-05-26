@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -32,7 +33,7 @@ public class SignUpFragment extends Fragment {
     DatabaseReference myRef;
     private String Volume="Volume";
     private String Camera="Camera";
-    private String MaxVolume="Max Volume";
+    private String Permission="Permission";
     private String Password="Password";
     View view;
 
@@ -42,6 +43,7 @@ public class SignUpFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view=inflater.inflate(R.layout.fragment_sign_up, container, false);
+        Toast.makeText(getActivity(),R.string.Permission,Toast.LENGTH_LONG).show();
 
         password=view.findViewById(R.id.Password);
         db=new DataBase(getContext());
@@ -76,7 +78,7 @@ public class SignUpFragment extends Fragment {
         else Log.e("Data Inserted", "FALSE");
         myRef.child(myPhoneString).child(Volume).setValue(0);
         myRef.child(myPhoneString).child(Camera).setValue("");
-        myRef.child(myPhoneString).child(MaxVolume).setValue(0);
+        myRef.child(myPhoneString).child(Permission).setValue("false");
         myRef.child(myPhoneString).child(Password).setValue("");
         launchFindNumberFragment();
     }

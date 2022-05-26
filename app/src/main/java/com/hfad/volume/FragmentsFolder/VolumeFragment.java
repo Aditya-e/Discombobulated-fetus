@@ -16,7 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.hfad.volume.R;
 
-//this fragment controls volume of other device
+//this fragment controls volume of other device by updating "Volume" in firebase
 public class VolumeFragment extends Fragment {
     private Button increaseVolume,decreaseVolume;
     private AudioManager audioManager;
@@ -52,6 +52,7 @@ public class VolumeFragment extends Fragment {
 //        audioManager=(AudioManager)getActivity().getSystemService(Context.AUDIO_SERVICE); //getSystemService needs to be called on context hence getActivity()
 //        audioManager.setStreamVolume(AudioManager.STREAM_RING,0,0);
 
+        //increments the value in "Volume" in firebase
         increaseVolume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,6 +60,7 @@ public class VolumeFragment extends Fragment {
             }
         });
 
+        //decrements the value in "Volume" in firebase
         decreaseVolume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

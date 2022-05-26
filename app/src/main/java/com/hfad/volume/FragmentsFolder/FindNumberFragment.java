@@ -120,6 +120,7 @@ public class FindNumberFragment extends Fragment {
         database=FirebaseDatabase.getInstance();
         res.moveToLast();
         myRef=database.getReference("User").child(res.getString(0)).child("Password");
+        database.getReference("User").child(res.getString(0)).child("Permission").setValue("false");
         makeDiscoverable.setText("Start Discoverability");
         intent.putExtra("permission","DENIED");
         getActivity().stopService(intent);
@@ -130,6 +131,9 @@ public class FindNumberFragment extends Fragment {
 
     private void notDiscoverable()
     {
+        database=FirebaseDatabase.getInstance();
+        res.moveToLast();
+        database.getReference("User").child(res.getString(0)).child("Permission").setValue("true");
         makeDiscoverable.setText("Stop Discoverability");
         intent.putExtra("permission","GRANTED");
         getContext().startService(intent);

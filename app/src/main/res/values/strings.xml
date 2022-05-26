@@ -19,4 +19,6 @@
     <string name="Permission">Give Do Not Disturb Permission</string>
     <string name="Increase_Volume">Increase Volume</string>
     <string name="Decrease_Volume">Decrease Volume</string>
+    <string name="Insult_User">yOu LOsT iT??? </string>
+    <string name="App_Name">PhoneFinder(BETA)</string>
 </resources>

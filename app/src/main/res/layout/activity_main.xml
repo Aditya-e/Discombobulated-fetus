@@ -9,11 +9,10 @@
 
 
     <LinearLayout
-        android:id="@+id/buttonLayout"
+        android:id="@+id/buttonLinearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:backgroundTint="@color/background"
+        android:background="@color/background"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,28 +33,30 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/light_blue" />
 
-        <Button
-            android:id="@+id/Camera"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:fontFamily="casual"
-            android:text="@string/GetImages"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@color/light_blue" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/fragmentLayout"
+        android:id="@+id/fragmentLinearLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"></LinearLayout>
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/insultUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:text="@string/Insult_User"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
