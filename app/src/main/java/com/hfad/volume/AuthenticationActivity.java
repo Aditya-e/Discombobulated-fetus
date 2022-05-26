@@ -2,10 +2,14 @@ package com.hfad.volume;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -41,6 +45,8 @@ public class AuthenticationActivity extends AppCompatActivity {
         if(res.getCount()==0)launchSignUpFragment();
         else launchFindNumberFragment();
 
+        
+
         Toast.makeText(getApplicationContext(),R.string.Permission,Toast.LENGTH_LONG);
         NotificationManager notificationManager =
                 (NotificationManager) this.getSystemService(this.NOTIFICATION_SERVICE);
@@ -48,12 +54,21 @@ public class AuthenticationActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
                 && !notificationManager.isNotificationPolicyAccessGranted()) {
 
+
+
             Intent intent = new Intent(
                     android.provider.Settings
                             .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
 
             startActivity(intent);
         }
+
+
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_DENIED)
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 183);
+
 
 
 

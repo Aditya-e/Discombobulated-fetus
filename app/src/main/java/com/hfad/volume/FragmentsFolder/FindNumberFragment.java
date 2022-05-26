@@ -96,6 +96,7 @@ public class FindNumberFragment extends Fragment {
                 myRef.setValue(lostPassword.getText().toString());
 
                 Intent intent=new Intent(getActivity(),MainActivity.class);
+                intent.putExtra("targetPhone",findPhone.getText().toString());
                 startActivity(intent);
 
             }
@@ -120,7 +121,9 @@ public class FindNumberFragment extends Fragment {
         res.moveToLast();
         myRef=database.getReference("User").child(res.getString(0)).child("Password");
         makeDiscoverable.setText("Start Discoverability");
-        getContext().stopService(intent);
+        intent.putExtra("permission","DENIED");
+        getActivity().stopService(intent);
+
         myRef.setValue("");
         state=0;
     }
@@ -128,6 +131,7 @@ public class FindNumberFragment extends Fragment {
     private void notDiscoverable()
     {
         makeDiscoverable.setText("Stop Discoverability");
+        intent.putExtra("permission","GRANTED");
         getContext().startService(intent);
         state=1;
     }
@@ -145,11 +149,6 @@ public class FindNumberFragment extends Fragment {
         startActivity(main_intent);
     }
 
-    public String sendTargetPhone()
-    {
-        EditText targetPhone=view.findViewById(R.id.findPhone);
-        String targetPhoneString=targetPhone.getText().toString();
-        return targetPhoneString;
-    }
+
 
 }

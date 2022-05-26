@@ -38,12 +38,12 @@ public class VolumeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        targetPhone= getArguments().getString("targetPhone");
         View view=inflater.inflate(R.layout.fragment_volume, container, false);
         increaseVolume=view.findViewById(R.id.increaseVolume);
         decreaseVolume=view.findViewById(R.id.decreaseVolume);
 
-        findNumberFragment=new FindNumberFragment();
-        targetPhone=findNumberFragment.sendTargetPhone();
+
 
         database=FirebaseDatabase.getInstance();
         myRef=database.getReference("User");
@@ -62,6 +62,7 @@ public class VolumeFragment extends Fragment {
         decreaseVolume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(volume>0)
                 myRef.child(targetPhone).child("Volume").setValue(--volume);
             }
         });

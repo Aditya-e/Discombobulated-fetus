@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -32,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setBackgroundDrawable(colorDrawable);
         actionBar.setTitle(R.string.AppTitle);
 
+        Intent intent=getIntent();
+        String targetPhone=intent.getStringExtra("targetPhone");
+
 
         //Buttons to open volume and camera fragments
         Button volume=findViewById(R.id.Volume);
@@ -41,7 +45,10 @@ public class MainActivity extends AppCompatActivity {
         volume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("targetPhone", targetPhone);
                 VolumeFragment volumeFragment=new VolumeFragment();
+                volumeFragment.setArguments(bundle);
                 FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragmentLayout,volumeFragment);
                 transaction.commit();

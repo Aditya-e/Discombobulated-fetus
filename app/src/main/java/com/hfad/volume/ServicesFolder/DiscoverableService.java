@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.hardware.Camera;
 import android.media.AudioManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -29,13 +30,14 @@ public class DiscoverableService extends IntentService {
     String phoneNumber;
     boolean access;
     private Handler handler;
+    //Camera camera;
 
     FirebaseDatabase database;
     DatabaseReference myRef;
 
     AudioManager audioManager;
 
-    private int maxVolume;
+    private String permission;
 
 
     public DiscoverableService() {
@@ -46,6 +48,7 @@ public class DiscoverableService extends IntentService {
     public int onStartCommand(Intent intent,int flags,int startId)
     {
         handler=new Handler();
+        permission=intent.getStringExtra("permission");
         return super.onStartCommand(intent,flags,startId);
     }
 
@@ -64,7 +67,12 @@ public class DiscoverableService extends IntentService {
             myRef = database.getReference("User").child(phoneNumber).child("Password");
 
         audioManager=(AudioManager)getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
-        audioManager.setStreamVolume(AudioManager.STREAM_RING,0,0);
+        //audioManager.setStreamVolume(AudioManager.STREAM_RING,0,0);
+
+
+        Log.e("Permission: ",permission);
+        if(permission.equals("GRANTED")) {
+
 
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -75,6 +83,21 @@ public class DiscoverableService extends IntentService {
                         Log.e("Service:", "Running here too");
                         Log.e("access", Boolean.toString(access));
                         //maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
+                        database.getReference("User").child(phoneNumber).child("Volume").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                int volume = snapshot.getValue(Integer.class);
+                                audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
                     }
                 }
 
@@ -83,25 +106,28 @@ public class DiscoverableService extends IntentService {
 
                 }
             });
+        }
 
             if(access) {
-                database.getReference("User").child(phoneNumber).child("Volume").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        int volume=snapshot.getValue(Integer.class);
-                        audioManager.setStreamVolume(AudioManager.STREAM_RING,volume,0);
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+//                database.getReference("User").child(phoneNumber).child("Volume").addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        int volume=snapshot.getValue(Integer.class);
+//                        audioManager.setStreamVolume(AudioManager.STREAM_RING,volume,0);
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
             }
 
 
     }
+
+
 
     private void showText()
     {
